@@ -1,11 +1,9 @@
-const baseURL = "http://localhost:3000/ramens";
-let currentRamenId = null; // ID du ramen sélectionné
+// src/index.js
 
-//! Affiche tous les ramens dans le menu
-function displayRamens() {
+//! Afficher tous les ramens
+export function displayRamens() {
     const ramenMenuDiv = document.getElementById("ramen-menu");
     if (!ramenMenuDiv) return;
-
     ramenMenuDiv.innerHTML = "";
 
     testResponseData.forEach(ramen => {
@@ -17,27 +15,24 @@ function displayRamens() {
     });
 }
 
-//! Affiche les détails du ramen sélectionné
-function handleClick(ramen) {
-    currentRamenId = ramen.id;
-
+//! Afficher les détails d’un ramen
+export function handleClick(ramen, event) {
     const detailImg = document.querySelector("#ramen-detail > .detail-image");
     const detailName = document.querySelector("#ramen-detail > .name");
     const detailRestaurant = document.querySelector("#ramen-detail > .restaurant");
     const detailsRating = document.getElementById("rating-display");
     const detailsComment = document.getElementById("comment-display");
 
-    if (detailImg) detailImg.src = ramen.image;
-    if (detailName) detailName.textContent = ramen.name;
-    if (detailRestaurant) detailRestaurant.textContent = ramen.restaurant;
-    if (detailsRating) detailsRating.textContent = ramen.rating.toString();
-    if (detailsComment) detailsComment.textContent = ramen.comment;
+    detailImg.src = ramen.image;
+    detailImg.alt = ramen.name;
+    detailName.textContent = ramen.name;
+    detailRestaurant.textContent = ramen.restaurant;
+    detailsRating.textContent = ramen.rating.toString();
+    detailsComment.textContent = ramen.comment;
 }
 
-//! Gère l'ajout d'un nouveau ramen via le formulaire
-function addSubmitListener(form) {
-    if (!form) return;
-
+//! Ajouter un nouveau ramen via le formulaire
+export function addSubmitListener(form) {
     form.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -56,29 +51,25 @@ function addSubmitListener(form) {
             comment
         };
 
-        // Ajoute le ramen au DOM
+        // Ajouter le nouveau ramen au DOM
         const ramenMenuDiv = document.getElementById("ramen-menu");
-        if (!ramenMenuDiv) return;
-
         const img = document.createElement("img");
         img.src = newRamen.image;
         img.alt = newRamen.name;
-        img.addEventListener("click", () => handleClick(newRamen));
+        img.addEventListener("click", (event) => handleClick(newRamen, event));
         ramenMenuDiv.appendChild(img);
 
-        // Reset du formulaire
+        // Réinitialiser le formulaire
         form.reset();
     });
 }
 
-//! Fonction principale pour lancer l'app
-function main() {
-    const ramenForm = document.getElementById("new-ramen");
-    addSubmitListener(ramenForm);
+//! Fonction principale
+export function main() {
     displayRamens();
+    const ramenForm = document.getElementById('new-ramen');
+    addSubmitListener(ramenForm);
 }
 
-//! Export pour les tests
-export { addSubmitListener, displayRamens, handleClick, main };
-
-
+// Exécuter main quand le DOM est prêt
+document.addEventListener("DOMContentLoaded", main);
