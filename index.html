@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <title>Ramen Rater</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link rel="stylesheet" href="styles.css" />
   <script defer type="module" src="./src/index.js"></script>
 </head>
 
@@ -13,11 +13,9 @@
     <h3>Ramen Rater</h3>
   </header>
 
-  
   <div id="ramen-menu">
-  
+    
   </div>
-
 
   <div id="ramen-detail">
     <img class="detail-image" src="./assets/image-placeholder.jpg" alt="Insert Name Here" />
@@ -27,30 +25,36 @@
 
   <h3>Rating:</h3>
   <p>
-    <span id='rating-display'>Insert rating here</span> / 10
+    <span id="rating-display">Insert rating here</span> / 10
   </p>
   <h3>Comment:</h3>
-  <p id='comment-display'>
-    Insert comment here
-  </p>
+  <p id="comment-display">Insert comment here</p>
 
+  <button id="delete-btn">Supprimer ce ramen</button>
 
   <form id="new-ramen">
-    <h4>Add New Ramen</h4>
-    <label for="new-name">Name: </label>
-    <input type="text" name="name" id="new-name" />
+    <h4>Ajouter un nouveau ramen</h4>
+    <label for="new-name">Nom: </label>
+    <input type="text" name="name" id="new-name" required />
     <label for="new-restaurant">Restaurant: </label>
-    <input type="text" name="restaurant" id="new-restaurant" />
-    <label for="new-image">Image: </label>
-    <input type="text" name="image" id="new-image" />
-    <label for="new-rating">Rating: </label>
-    <input type="number" name="rating" id="new-rating" />
-    <label for="new-comment">Comment: </label>
-    <textarea name="new-comment" name="new-comment" id="new-comment"></textarea>
-    <input type="submit" id='submit-button' value="Create" />
+    <input type="text" name="restaurant" id="new-restaurant" required />
+    <label for="new-image">Image URL: </label>
+    <input type="text" name="image" id="new-image" required />
+    <label for="new-rating">Note: </label>
+    <input type="number" name="rating" id="new-rating" min="0" max="10" required />
+    <label for="new-comment">Commentaire: </label>
+    <textarea name="new-comment" id="new-comment" required></textarea>
+    <input type="submit" value="Créer" />
   </form>
 
+  <form id="edit-ramen">
+    <h4>Modifier le ramen sélectionné</h4>
+    <label for="edit-rating">Note: </label>
+    <input type="number" name="rating" id="edit-rating" min="0" max="10" required />
+    <label for="edit-comment">Commentaire: </label>
+    <textarea name="comment" id="edit-comment" required></textarea>
+    <input type="submit" value="Mettre à jour" />
+  </form>
 </body>
 
 </html>
-
